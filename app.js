@@ -67,6 +67,6 @@ app.get("/logout", function (req, res) {
 app.use("/index", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Server listening on port: 3000`);
 });
