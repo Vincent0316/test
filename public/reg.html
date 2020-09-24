@@ -1,0 +1,212 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .f-wrap {
+        width: 420px;
+      }
+      .f-wrap input,
+      .f-wrap label,
+      .f-wrap select {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="f-wrap center-block">
+      <h1>Requester Registration</h1>
+      <p>Create an iCrowdTsak Account</p>
+
+      <form class="data-form" id="data-form">
+        <div class="form-group">
+          <label>
+            Country of residence
+            <span class="text-danger">*</span>
+            <select class="form-control" name="country">
+              <option value="">Please select</option>
+               <option value="1">Australia</option>
+              <option value="2">America</option>            
+              <option value="3">China</option>
+              <option value="4">India</option>
+              <option value="5">Malaysia</option>
+              <option value="6">Other</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>
+                First name
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" name="firstName" />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>
+                Last name
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" name="lastName" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>
+            Email
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" name="email" />
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            Password
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" name="password" />
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            Confirm password
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" name="repassword" />
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            Address
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" name="address" />
+          </label>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>
+                City
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" name="city" />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>
+                State, Province or Region
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" name="state" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>
+            ZIP / Postal code
+            <input type="text" class="form-control" name="code" />
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            Mobile phone number
+            <input type="text" class="form-control" name="phone" />
+          </label>
+        </div>
+        <p class="text-danger info" style="display: none"></p>
+        <button type="button" class="btn btn-default submit-btn">Submit</button>
+      </form>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+  <script>
+    (function () {
+      var emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+      var phoneReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
+
+      $(".submit-btn").on("click", function () {
+        //   把数据组装为一个对象要传给后台
+        var data = $("#data-form")
+          .serializeArray()
+          .reduce((n, d) => {
+            return { ...n, [d.name]: d.value };
+          }, {});
+
+        if (data.country == "") {
+          $(".info").show().text("country of residence cannot be empty");
+          return;
+        }
+        if (data.firstName == "") {
+          $(".info").show().text("firstName cannot be empty");
+          return;
+        }
+        if (data.lastName == "") {
+          $(".info").show().text("lastName cannot be empty");
+          return;
+        }
+        if (data.email == "") {
+          $(".info").show().text("email cannot be empty");
+          return;
+        }
+        if (!emailReg.test(data.email)) {
+          $(".info").show().text("Incorrect email address format");
+          return;
+        }
+        if (data.password == "") {
+          $(".info").show().text("password cannot be empty");
+          return;
+        }
+        if (data.password.length < 8) {
+          $(".info").show().text("the password must be at least 8 characters");
+          return;
+        }
+        if (data.password !== data.repassword) {
+          $(".info").show().text("The two passwords are different");
+          return;
+        }
+        if (data.address == "") {
+          $(".info").show().text("address cannot be empty");
+          return;
+        }
+        if (data.city == "") {
+          $(".info").show().text("city cannot be empty");
+          return;
+        }
+        if (data.state == "") {
+          $(".info").show().text("state cannot be empty");
+          return;
+        }
+        if (data.phone && !phoneReg.test(data.phone)) {
+          $(".info").show().text("Incorrect format of mobile phone number");
+          return;
+        }
+        $(".info").text("").hide();
+
+        $.ajax({
+          url: "/users/reg",
+          method: "post",
+          data,
+          success: (res) => {
+            if (res.code == 200) {
+              location.href = "./login";
+            } else {
+              alert(res.msg);
+            }
+          },
+        });
+      });
+    })();
+  </script>
+</html>
