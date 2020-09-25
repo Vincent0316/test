@@ -54,7 +54,7 @@ passport.use(
 router.get(
   "/googleLogin",
   passport.authenticate("google", {
-    scope: ['profile', 'email'],
+    scope: ["https://www.googleapis.com/auth/plus.login"],
   })
 );
 
