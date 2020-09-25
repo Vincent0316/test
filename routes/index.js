@@ -6,6 +6,22 @@ var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var userModel = require("./../db/db");
 
 // passport.use(userModel.createStrategy());
+// passport.serializeUser(userModel.serializeUser());
+// passport.deserializeUser(userModel.deserializeUser());
+
+
+
+// used to serialize the user for the session
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+// used to deserialize the user
+passport.deserializeUser(function (id, done) {
+  done(id);
+  // User.findById(id, function (err, user) {
+  //   done(err, user);
+  // });
+});
 
 passport.use(
   new GoogleStrategy(
@@ -25,30 +41,28 @@ passport.use(
       console.log("accessToken -> :", accessToken);
       //   在这里保存数据
       var us = new userModel({
-        country:'',
-        firstName:profile.name.familyName,
-        lastName:profile.name.givenName,
+        country: '',
+        firstName: profile.name.familyName,
+        lastName: profile.name.givenName,
         username: profile.name.familyName,
-        email:'gugedenglu@qq.com',
-        password:profile.name.familyName,
-        repassword:'',
-        address:'',
-        city:'',
-        state:'',
-        code:'',
-        phone:'',
+        email: 'gugedenglu@qq.com',
+        password: profile.name.familyName,
+        repassword: '',
+        address: '',
+        city: '',
+        state: '',
+        code: '',
+        phone: '',
       })
-      // us.save()
-      userModel.register(us, profile.name.familyName, (err, user) => {
-        console.log("保存的 user -> :", user);
+      us.save()
+      // userModel.register(us, profile.name.familyName, (err, user) => {
+      //   console.log("保存的 user -> :", user);
 
-        done()
-      });
+      //   done()
+      // });
     }
   )
 );
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
 
 
 
@@ -61,18 +75,18 @@ router.get(
 
 router.get(
   "/googleCallback",
-  // passport.authenticate("google", {
-  //   failureRedirect: "/login",
-  //   successRedirect: '/dashboard'
-  // }),
+  passssport.authenticate("google", {
+    failureRedirect: "/login",
+    successRedirect: '/dashboard'
+  }),
   (req, res) => {
 
-    passport.authenticate("google")(req, res, () => {
-      res.redirect('/dashboard');
-      // return res.json({ code: 200, msg: "success" });
-    });
+    // passport.authenticate("google")(req, res, () => {
+    //   res.redirect('/dashboard');
+    //   // return res.json({ code: 200, msg: "success" });
+    // });
 
-    // res.redirect('/dashboard');
+    res.redirect('/dashboard');
   }
 );
 
