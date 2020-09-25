@@ -60,16 +60,16 @@ router.get(
 
 router.get(
   "/googleCallback",
-  // passport.authenticate("c", {
-  //   failureRedirect: "/login",
-  //   successRedirect: '/dashboard'
-  // }),
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    successRedirect: '/dashboard'
+  }),
   (req, res) => {
 
-    passport.authenticate("google")(req, res, () => {
-      res.redirect('/dashboard');
-      // return res.json({ code: 200, msg: "success" });
-    });
+    // passport.authenticate("google")(req, res, () => {
+    //   res.redirect('/dashboard');
+    //   // return res.json({ code: 200, msg: "success" });
+    // });
 
     res.redirect('/dashboard');
   }
