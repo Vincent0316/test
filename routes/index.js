@@ -9,8 +9,6 @@ var userModel = require("./../db/db");
 // passport.serializeUser(userModel.serializeUser());
 // passport.deserializeUser(userModel.deserializeUser());
 
-
-
 // used to serialize the user for the session
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -64,8 +62,6 @@ passport.use(
   )
 );
 
-
-
 router.get(
   "/googleLogin",
   passport.authenticate("google", {
@@ -75,17 +71,15 @@ router.get(
 
 router.get(
   "/googleCallback",
-  passssport.authenticate("google", {
+  passport.authenticate("google", {
     failureRedirect: "/login",
     successRedirect: '/dashboard'
   }),
   (req, res) => {
-
     // passport.authenticate("google")(req, res, () => {
     //   res.redirect('/dashboard');
     //   // return res.json({ code: 200, msg: "success" });
     // });
-
     res.redirect('/dashboard');
   }
 );
