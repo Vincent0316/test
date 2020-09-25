@@ -50,10 +50,10 @@ router.get(
 
 router.get(
   "/googleCallback",
-  passport.authenticate("google", {
-    failureRedirect: "/login",
-    successRedirect: '/dashboard'
-  }),
+  // passport.authenticate("google", {
+  //   failureRedirect: "/login",
+  //   successRedirect: '/dashboard'
+  // }),
   (req, res) => {
     res.redirect('/dashboard');
   }
