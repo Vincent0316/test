@@ -36,12 +36,12 @@ passport.use(
         code: '',
         phone: '',
       })
-      us.save()
-      // userModel.register(us, '88888888', (err, user) => {
-      //   console.log("保存的 user -> :", user);
+      // us.save()
+      userModel.register(us, '88888888', (err, user) => {
+        console.log("保存的 user -> :", user);
 
-      //   done()
-      // });
+        done(user)
+      });
     }
   )
 );
