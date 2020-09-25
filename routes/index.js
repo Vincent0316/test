@@ -5,7 +5,7 @@ var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var userModel = require("./../db/db");
 
-// passport.use(userModel.createStrategy());
+passport.use(userModel.createStrategy());
 passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());
 
@@ -97,7 +97,7 @@ router.get(
   passport.authenticate("google"),
   (req, res) => {
     // passport.authenticate("google")(req, res, () => {
-    //   res.redirect('/dashboard');ss
+    //   res.redirect('/dashboard');
     // });
     res.redirect('/dashboard');
   }
