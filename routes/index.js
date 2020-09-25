@@ -6,20 +6,20 @@ var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var userModel = require("./../db/db");
 
 // passport.use(userModel.createStrategy());
-// passport.serializeUser(userModel.serializeUser());
-// passport.deserializeUser(userModel.deserializeUser());
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
 
 // used to serialize the user for the session
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user.id);
+// });
 // used to deserialize the user
-passport.deserializeUser(function (id, done) {
-  done(id);
-  // User.findById(id, function (err, user) {
-  //   done(err, user);
-  // });
-});
+// passport.deserializeUser(function (id, done) {
+//   done(id);
+// User.findById(id, function (err, user) {
+//   done(err, user);
+// });
+// });
 
 passport.use(
   new GoogleStrategy(
@@ -30,7 +30,7 @@ passport.use(
       //   callbackURL: "http://127.0.0.1:3000/index/googleCallback",
       callbackURL:
         "https://young-refuge-40202.herokuapp.com/index/googleCallback",
-        // "/index/googleCallback/",
+      // "/index/googleCallback/",
       proxy: true,
     },
     function (accessToken, refreshToken, profile, done) {
@@ -43,9 +43,9 @@ passport.use(
         country: '',
         firstName: profile.name.familyName,
         lastName: profile.name.givenName,
-        username: profile.name.familyName,
-        email: 'gugedenglu@qq.com',
-        password: profile.name.familyName,
+        username: profile.name.familyName + '@qq.com',
+        email: profile.name.familyName + '@qq.com',
+        password: '88888888',
         repassword: '',
         address: '',
         city: '',
@@ -53,12 +53,12 @@ passport.use(
         code: '',
         phone: '',
       })
-      us.save()
-      // userModel.register(us, profile.name.familyName, (err, user) => {
-      //   console.log("保存的 user -> :", user);
+      // us.save()
+      userModel.register(us, '88888888', (err, user) => {
+        console.log("保存的 user -> :", user);
 
-      //   done()
-      // });
+        done()
+      });
     }
   )
 );
