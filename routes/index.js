@@ -72,6 +72,17 @@ router.get(
   }
 );
 
+
+router.get(
+  "/deluser",
+  (req, res) => {
+    userModel.remove({},(err, re) => {
+      res.json('ok')
+    })
+  }
+);
+
+
 router.get(
   "/googleLogin",
   passport.authenticate("google", {
