@@ -5,6 +5,11 @@ var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var userModel = require("./../db/db");
 
+passport.use(userModel.createStrategy());
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
+
+
 passport.use(
   new GoogleStrategy(
     {
@@ -22,21 +27,26 @@ passport.use(
       console.log("refreshToken -> :", refreshToken);
       console.log("accessToken -> :", accessToken);
       //   在这里保存数据
-      // var us = new userModel({
-      //   country:'',
-      //   firstName:profile.name.familyName,
-      //   lastName:profile.name.givenName,
-      //   username: profile.name.familyName,
-      //   email:'gugedenglu',
-      //   password:'',
-      //   repassword:'',
-      //   address:'',
-      //   city:'',
-      //   state:'',
-      //   code:'',
-      //   phone:'',
-      // })
+      var us = new userModel({
+        country:'',
+        firstName:profile.name.familyName,
+        lastName:profile.name.givenName,
+        username: profile.name.familyName,
+        email:'gugedenglu@qq.com',
+        password:profile.name.familyName,
+        repassword:'',
+        address:'',
+        city:'',
+        state:'',
+        code:'',
+        phone:'',
+      })
       // us.save()
+      userModel.register(us, profile.name.familyName, (err, user) => {
+        console.log("保存的 user -> :", user);
+
+        done()
+      });
     }
   )
 );
