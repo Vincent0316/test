@@ -29,7 +29,7 @@ passport.use(
       clientSecret: "9KwAOXMZgUprUH6gzNnoPMia",
       //   callbackURL: "http://127.0.0.1:3000/index/googleCallback",
       callbackURL:
-        "https://young-refuge-40202.herokuapp.com/index/googleCallback/",
+        "https://young-refuge-40202.herokuapp.com/index/googleCallback",
         // "/index/googleCallback/",
       proxy: true,
     },
