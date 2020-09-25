@@ -22,21 +22,21 @@ passport.use(
       console.log("refreshToken -> :", refreshToken);
       console.log("accessToken -> :", accessToken);
       //   在这里保存数据
-      var us = new userModel({
-        country:'',
-        firstName:profile.name.familyName,
-        lastName:profile.name.givenName,
-        username: 'gugedengle',
-        email:'gugedenglu',
-        password:'',
-        repassword:'',
-        address:'',
-        city:'',
-        state:'',
-        code:'',
-        phone:'',
-      })
-      us.save()
+      // var us = new userModel({
+      //   country:'',
+      //   firstName:profile.name.familyName,
+      //   lastName:profile.name.givenName,
+      //   username: profile.name.familyName,
+      //   email:'gugedenglu',
+      //   password:'',
+      //   repassword:'',
+      //   address:'',
+      //   city:'',
+      //   state:'',
+      //   code:'',
+      //   phone:'',
+      // })
+      // us.save()
     }
   )
 );
