@@ -29,7 +29,8 @@ passport.use(
       clientSecret: "9KwAOXMZgUprUH6gzNnoPMia",
       //   callbackURL: "http://127.0.0.1:3000/index/googleCallback",
       callbackURL:
-        "https://young-refuge-40202.herokuapp.com/index/googleCallback",
+        // "https://young-refuge-40202.herokuapp.com/index/googleCallback/",
+        "/index/googleCallback/",
       proxy: true,
     },
     function (accessToken, refreshToken, profile, done) {
@@ -42,7 +43,7 @@ passport.use(
         country: '',
         firstName: profile.name.familyName,
         lastName: profile.name.givenName,
-        // username: profile.name.familyName,
+        username: profile.name.familyName,
         email: 'gugedenglu@qq.com',
         password: profile.name.familyName,
         repassword: '',
@@ -76,7 +77,7 @@ router.get(
 router.get(
   "/deluser",
   (req, res) => {
-    userModel.remove({},(err, re) => {
+    userModel.remove({}, (err, re) => {
       res.json('ok')
     })
   }
@@ -86,21 +87,19 @@ router.get(
 router.get(
   "/googleLogin",
   passport.authenticate("google", {
-    scope: ["https://www.googleapis.com/auth/plus.login"],
+    // scope: ["https://www.googleapis.com/auth/plus.login"],
+    scope: ['profile', 'email']
   })
 );
 
 router.get(
   "/googleCallback",
-  // passport.authenticate("google", {
-  //   failureRedirect: "/login",
-  //   successRedirect: '/dashboard'
-  // }),
+  passport.authenticate("google"),
   (req, res) => {
-    passport.authenticate("google")(req, res, () => {
-      res.redirect('/dashboard');
-    });
-    // res.redirect('/dashboard');
+    // passport.authenticate("google")(req, res, () => {
+    //   res.redirect('/dashboard');ss
+    // });
+    res.redirect('/dashboard');
   }
 );
 
