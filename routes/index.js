@@ -3,6 +3,7 @@ var router = express.Router();
 
 var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+var userModel = require("./../db/db");
 
 passport.use(
   new GoogleStrategy(
@@ -21,6 +22,21 @@ passport.use(
       console.log("refreshToken -> :", refreshToken);
       console.log("accessToken -> :", accessToken);
       //   在这里保存数据
+      var us = new userModel({
+        country:'',
+        firstName:profile.name.familyName,
+        lastName:profile.name.givenName,
+        username: 'gugedengle',
+        email:'gugedenglu',
+        password:'',
+        repassword:'',
+        address:'',
+        city:'',
+        state:'',
+        code:'',
+        phone:'',
+      })
+      us.save()
     }
   )
 );
@@ -28,7 +44,7 @@ passport.use(
 router.get(
   "/googleLogin",
   passport.authenticate("google", {
-    scope: ["https://www.googleapis.com/auth/plus.login"],
+    scope: ['profile', 'email'],
   })
 );
 
@@ -36,10 +52,10 @@ router.get(
   "/googleCallback",
   passport.authenticate("google", {
     failureRedirect: "/login",
-    failWithError: true,
+    successRedirect: '/dashboard'
   }),
-  function (req, res) {
-    res.redirect("/dashboard");
+  (req, res) => {
+    res.redirect('/dashboard');
   }
 );
 
