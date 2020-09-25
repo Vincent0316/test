@@ -5,10 +5,7 @@ var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var userModel = require("./../db/db");
 
-passport.use(userModel.createStrategy());
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
-
+// passport.use(userModel.createStrategy());
 
 passport.use(
   new GoogleStrategy(
@@ -50,6 +47,10 @@ passport.use(
     }
   )
 );
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
+
+
 
 router.get(
   "/googleLogin",
