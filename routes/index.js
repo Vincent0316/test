@@ -94,12 +94,12 @@ router.get(
 
 router.get(
   "/googleCallback",
-  passport.authenticate("google"),
+  // passport.authenticate("google"),
   (req, res) => {
-    // passport.authenticate("google")(req, res, () => {
-    //   res.redirect('/dashboard');
-    // });
-    res.redirect('/dashboard');
+    passport.authenticate("google")(req, res, () => {
+      res.redirect('/dashboard');
+    });
+    // res.redirect('/dashboard');
   }
 );
 
