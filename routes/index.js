@@ -42,7 +42,7 @@ passport.use(
         country: '',
         firstName: profile.name.familyName,
         lastName: profile.name.givenName,
-        username: profile.name.familyName,
+        // username: profile.name.familyName,
         email: 'gugedenglu@qq.com',
         password: profile.name.familyName,
         repassword: '',
@@ -60,6 +60,16 @@ passport.use(
       // });
     }
   )
+);
+
+
+router.get(
+  "/alluser",
+  (req, res) => {
+    userModel.find((err, re) => {
+      res.json({ data: re })
+    })
+  }
 );
 
 router.get(
