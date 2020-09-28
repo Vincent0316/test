@@ -75,12 +75,12 @@ app.post('/google', function(req, res) {
     });
   }
   verify()
-  .then(()=>{
-    res.json();
-  })
-  .catch(e=>{
-    res.status(401).json();
-  });
+    .then(() => {
+      res.json({ data: "ok" });
+    })
+    .catch(e => {
+      res.status(401).json();
+    });
 })
 app.use("/index", require("./routes/index"));
 app.use("/users", require("./routes/users"));
