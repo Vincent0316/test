@@ -157,6 +157,7 @@ router.post('/google', function(req, res) {
       res.json({ code: 200, msg: "success" });
     })
     .catch(e => {
+      console.log(e)
       res.status(401).json();
     });
 })
