@@ -5,7 +5,8 @@ const session = require("express-session");
 
 const mongoose = require("mongoose");
 const passport = require("passport");
-
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client("425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com");
 app.use(express.static("public"));
 
 app.use(bodyParser.json());
@@ -65,7 +66,23 @@ app.get("/logout", function(req, res) {
 });
 
 app.post('/google', function(req, res) {
-  
+  async function verify () {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.id_token,
+      audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+    });
+    const payload = ticket.getPayload();
+    const userid = payload['sub'];
+    // If request specified a G Suite domain:
+    // const domain = payload['hd'];
+  }
+  verify()
+  .then(()=>{
+    res.json();
+  })
+  .catch(console.error);
 })
 app.use("/index", require("./routes/index"));
 app.use("/users", require("./routes/users"));
