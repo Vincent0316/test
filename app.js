@@ -78,7 +78,9 @@ app.post('/google', function(req, res) {
   .then(()=>{
     res.json();
   })
-  .catch(console.error);
+  .catch(e=>{
+    res.status(401).json();
+  });
 })
 app.use("/index", require("./routes/index"));
 app.use("/users", require("./routes/users"));
