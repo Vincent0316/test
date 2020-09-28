@@ -3,7 +3,8 @@ var userModel = require("./../db/db");
 var bcryptjs = require("bcryptjs");
 var router = express.Router();
 const passport = require("passport");
-
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client("425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com");
 passport.use(userModel.createStrategy());
 passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());

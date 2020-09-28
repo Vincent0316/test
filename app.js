@@ -5,8 +5,7 @@ const session = require("express-session");
 
 const mongoose = require("mongoose");
 const passport = require("passport");
-const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client("425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com");
+
 app.use(express.static("public"));
 
 app.use(bodyParser.json());
