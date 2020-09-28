@@ -69,7 +69,7 @@ app.post('/google', function(req, res) {
   async function verify () {
     const ticket = await client.verifyIdToken({
       idToken: req.body.id_token,
-      audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+      audience: "425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
