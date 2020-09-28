@@ -155,9 +155,9 @@ router.post('/google', function(req, res) {
     return ticket;
   }
   verify()
-    .then((data) => {
-      console.log(data);
-      req.session.userName = data
+    .then((ticket) => {
+      const payload = ticket.getPayload();
+      req.session.userName = payload['email'];
       res.json({ code: 200, msg: "success" });
     })
     .catch(e => {
