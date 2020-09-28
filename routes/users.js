@@ -162,6 +162,24 @@ router.post("/upPwd", function (req, res, next) {
     return res.json({ code: 500, msg: "The two passwords are different" });
   }
 
+  router.post('/google', function(req, res) {
+    async function verify () {
+      const ticket = await client.verifyIdToken({
+        idToken: req.body.id_token,
+        audience: "425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+        // Or, if multiple clients access the backend:
+        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      });
+    }
+    verify()
+      .then(() => {
+        res.json({ code: 200, msg: "success" });
+      })
+      .catch(e => {
+        res.status(401).json();
+      });
+  })
+
   var user = new userModel();
 
   userModel.findByUsername(username).then(
@@ -192,6 +210,8 @@ router.post("/upPwd", function (req, res, next) {
       console.error(err);
     }
   );
+
+
 
   //   user.setPassword(password, function (err) {
   //     if (err) {

@@ -65,23 +65,7 @@ app.get("/logout", function(req, res) {
   res.redirect("/login");
 });
 
-app.post('/google', function(req, res) {
-  async function verify () {
-    const ticket = await client.verifyIdToken({
-      idToken: req.body.id_token,
-      audience: "425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
-      // Or, if multiple clients access the backend:
-      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-    });
-  }
-  verify()
-    .then(() => {
-      res.json({ data: "ok" });
-    })
-    .catch(e => {
-      res.status(401).json();
-    });
-})
+
 app.use("/index", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 

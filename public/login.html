@@ -117,7 +117,7 @@
       var id_token = googleUser.getAuthResponse().id_token;
       console.log(id_token);
       $.ajax({
-        url: "/google",
+        url: "/users/google",
         method: "post",
         data: { id_token },
         success: (res) => {
