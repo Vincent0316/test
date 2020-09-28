@@ -155,7 +155,9 @@ router.post('/google', function(req, res) {
   }
   verify()
     .then(() => {
-      res.json({ code: 200, msg: "success" });
+      passport.authenticate("local")(req, res, () => {
+        return res.json({ code: 200, msg: "success" });
+      });
     })
     .catch(e => {
       console.log(e)
