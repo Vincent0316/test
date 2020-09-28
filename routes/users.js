@@ -12,10 +12,10 @@ var emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 var phoneReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+router.get("/", function(req, res, next) {
   res.send("respond with a resource");
 });
-router.post("/reg", function (req, res, next) {
+router.post("/reg", function(req, res, next) {
   var {
     country,
     firstName,
@@ -97,7 +97,7 @@ router.post("/reg", function (req, res, next) {
   });
 });
 
-router.post("/login", function (req, res, next) {
+router.post("/login", function(req, res, next) {
   var { username, password, rememberPwd } = req.body;
 
   if (username === undefined) {
@@ -121,7 +121,7 @@ router.post("/login", function (req, res, next) {
       return res.json({ code: 200, msg: "success" });
     });
   } else {
-    userModel.findByUsername(username, function (err, user) {
+    userModel.findByUsername(username, function(err, user) {
       if (err) {
         return res.json({
           code: 500,
@@ -143,7 +143,25 @@ router.post("/login", function (req, res, next) {
   }
 });
 
-router.post("/upPwd", function (req, res, next) {
+router.post('/google', function(req, res) {
+  async function verify () {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.id_token,
+      audience: "425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+    });
+  }
+  verify()
+    .then(() => {
+      res.json({ code: 200, msg: "success" });
+    })
+    .catch(e => {
+      res.status(401).json();
+    });
+})
+
+router.post("/upPwd", function(req, res, next) {
   var { username, password, repassword } = req.body;
 
   if (username === undefined) {
@@ -162,30 +180,14 @@ router.post("/upPwd", function (req, res, next) {
     return res.json({ code: 500, msg: "The two passwords are different" });
   }
 
-  router.post('/google', function(req, res) {
-    async function verify () {
-      const ticket = await client.verifyIdToken({
-        idToken: req.body.id_token,
-        audience: "425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
-        // Or, if multiple clients access the backend:
-        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-      });
-    }
-    verify()
-      .then(() => {
-        res.json({ code: 200, msg: "success" });
-      })
-      .catch(e => {
-        res.status(401).json();
-      });
-  })
+
 
   var user = new userModel();
 
   userModel.findByUsername(username).then(
-    function (sanitizedUser) {
+    function(sanitizedUser) {
       if (sanitizedUser) {
-        sanitizedUser.setPassword("88888888", function () {
+        sanitizedUser.setPassword("88888888", function() {
           sanitizedUser.save();
           userModel.update(
             { email: username },
@@ -206,7 +208,7 @@ router.post("/upPwd", function (req, res, next) {
         });
       }
     },
-    function (err) {
+    function(err) {
       console.error(err);
     }
   );
