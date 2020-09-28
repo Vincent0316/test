@@ -1,214 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- <meta
-      name="google-signin-client_id"
-      content="425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com"
-    />
-    <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-    <style>
-      .f-wrap {
-        width: 420px;
-      }
-      .f-wrap input[type="text"],
-      .f-wrap label,
-      .f-wrap select {
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="f-wrap center-block">
-      <h1>iCrowdTask Login</h1>
-      <p class="clearfix">
-        <span class="pull-left">Sign in</span>
-        <a class="btn btn-primary pull-right" href="/reg" role="button"
-          >Sign up</a
-        >
-      </p>
 
-      <form class="data-form" id="data-form">
-        <div class="form-group">
-          <label>
-            Your Username
-            <span class="text-danger">*</span>
-            <input type="text" class="form-control" name="username" />
-          </label>
-        </div>
-        <div class="form-group">
-          <label>
-            Your Password
-            <span class="text-danger">*</span>
-            <span style="float: right"><a href="/forget">Forgot</a></span>
-            <input type="text" class="form-control" name="password" />
-          </label>
-        </div>
-        <div class="">
-          <label>
-            <input type="checkbox" class="" name="rememberPwd" />
-            Save Password
-          </label>
-        </div>
-
-        <p class="text-danger info" style="display: none"></p>
-        <button type="button" class="btn btn-default submit-btn">Submit</button>
-
-     <!--   <a href="/index/googleLogin">Sign In with Google</a>-->
-
-  
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-  <script src="https://apis.google.com/js/api:client.js"></script>
-  <script>
-  var googleUser = {};
-  var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      attachSignin(document.getElementById('customBtn'));
-    });
-  };
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  function attachSignin(element) {
-    console.log(element.id);
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-          document.getElementById('name').innerText = "Signed in: " +
-              googleUser.getBasicProfile().getName();
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-  }
-  </script>
-  <style type="text/css">
-    #customBtn {
-      display: inline-block;
-      background: white;
-      color: #444;
-      width: 190px;
-      border-radius: 5px;
-      border: thin solid #888;
-      box-shadow: 1px 1px 1px grey;
-      white-space: nowrap;
+  <meta name="google-signin-client_id"
+    content="425773347497-athni9dhsp3259tllu4as507gkhp89a0.apps.googleusercontent.com" />
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <style>
+    .f-wrap {
+      width: 420px;
     }
-    #customBtn:hover {
-      cursor: pointer;
-    }
-    span.label {
-      font-family: serif;
-      font-weight: normal;
-    }
-    span.icon {
-      background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 42px;
-      height: 42px;
-    }
-    span.buttonText {
-      display: inline-block;
-      vertical-align: middle;
-      padding-left: 42px;
-      padding-right: 42px;
-      font-size: 14px;
-      font-weight: bold;
-      /* Use the Roboto font that is loaded in the <head> */
-      font-family: 'Roboto', sans-serif;
+
+    .f-wrap input[type="text"],
+    .f-wrap label,
+    .f-wrap select {
+      width: 100%;
     }
   </style>
-  </head>
-  <body>
-  <!-- In the callback, you would hide the gSignInWrapper element on a
-  successful sign in -->
-  <div id="gSignInWrapper">
-    <span class="label">Sign in with:</span>
-    <div id="customBtn" class="customGPlusSignIn">
-      <span class="icon"></span>
-      <span class="buttonText">Google</span>
-    </div>
+</head>
+
+<body>
+  <div class="f-wrap center-block">
+    <h1>iCrowdTask Login</h1>
+    <p class="clearfix">
+      <span class="pull-left">Sign in</span>
+      <a class="btn btn-primary pull-right" href="/reg" role="button">Sign up</a>
+    </p>
+
+    <form class="data-form" id="data-form">
+      <div class="form-group">
+        <label>
+          Your Username
+          <span class="text-danger">*</span>
+          <input type="text" class="form-control" name="username" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Your Password
+          <span class="text-danger">*</span>
+          <span style="float: right"><a href="/forget">Forgot</a></span>
+          <input type="text" class="form-control" name="password" />
+        </label>
+      </div>
+      <div class="">
+        <label>
+          <input type="checkbox" class="" name="rememberPwd" />
+          Save Password
+        </label>
+      </div>
+
+      <p class="text-danger info" style="display: none"></p>
+      <button type="button" class="btn btn-default submit-btn">Submit</button>
+
+      <!-- <a href="/index/googleLogin">Sign In with Google</a> -->
+
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+
+
+    </form>
   </div>
-  <div id="name"></div>
-  <script>startApp();</script>
-  </body>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+  (function() {
+    var emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 
+    $(".submit-btn").on("click", function() {
+      //   把数据组装为一个对象要传给后台
+      var data = $("#data-form")
+        .serializeArray()
+        .reduce((n, d) => {
+          return { ...n, [d.name]: d.value };
+        }, {});
 
-
-
-
-
-
-
-
-      </form>
-    </div>
-  </body>
-     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-  <script>
-    (function () {
-      var emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-
-      $(".submit-btn").on("click", function () {
-        //   把数据组装为一个对象要传给后台
-        var data = $("#data-form")
-          .serializeArray()
-          .reduce((n, d) => {
-            return { ...n, [d.name]: d.value };
-          }, {});
-
-        if (data.username == "") {
-          $(".info").show().text("username cannot be empty");
-          return;
-        }
-        if (!emailReg.test(data.username)) {
-          $(".info").show().text("Incorrect email address format");
-          return;
-        }
-        if (data.password == "") {
-          $(".info").show().text("password cannot be empty");
-          return;
-        }
-        if (data.password.length < 8) {
-          $(".info").show().text("the password must be at least 8 characters");
-          return;
-        }
-
-        $(".info").text("").hide();
-
-        $.ajax({
-          url: "/users/login",
-          method: "post",
-          data,
-          success: (res) => {
-            if (res.code == 200) {
-              location.href = "/dashboard";
-            } else {
-              alert(res.msg);
-            }
-          },
-        });
-      });
-
-      function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        var id_token = googleUser.getAuthResponse().id_token;
-
-        console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log("Name: " + profile.getName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+      if (data.username == "") {
+        $(".info").show().text("username cannot be empty");
+        return;
       }
-    })();
-  </script>
+      if (!emailReg.test(data.username)) {
+        $(".info").show().text("Incorrect email address format");
+        return;
+      }
+      if (data.password == "") {
+        $(".info").show().text("password cannot be empty");
+        return;
+      }
+      if (data.password.length < 8) {
+        $(".info").show().text("the password must be at least 8 characters");
+        return;
+      }
+
+      $(".info").text("").hide();
+
+      $.ajax({
+        url: "/users/login",
+        method: "post",
+        data,
+        success: (res) => {
+          if (res.code == 200) {
+            location.href = "/dashboard";
+          } else {
+            alert(res.msg);
+          }
+        },
+      });
+    });
+
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      var id_token = googleUser.getAuthResponse().id_token;
+      $.post('/google', { id_token }, function(response) {
+        console.log(response)
+      })
+      console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log("Name: " + profile.getName());
+      console.log("Image URL: " + profile.getImageUrl());
+      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+  })();
+</script>
+
 </html>

@@ -30,7 +30,7 @@ app.use(passport.session());
 mongoose.connect(
   "mongodb+srv://dbUser:dbUserPassword@cluster0.3rs87.mongodb.net/mongoname?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true },
-  function (err) {
+  function(err) {
     if (err) {
       console.log(
         "Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!"
@@ -58,12 +58,15 @@ app.get("/forget", (req, res) => {
   res.sendFile(__dirname + "/public/forget.html");
 });
 
-app.get("/logout", function (req, res) {
+app.get("/logout", function(req, res) {
   req.session.userName = null; // 删除session
   req.logout();
   res.redirect("/login");
 });
 
+app.post('/google', function(req, res) {
+  
+})
 app.use("/index", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 
