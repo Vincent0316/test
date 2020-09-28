@@ -115,6 +115,7 @@
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
       var id_token = googleUser.getAuthResponse().id_token;
+      console.log(id_token);
       $.post('/google', { id_token }, function(response) {
         console.log(response)
       })
