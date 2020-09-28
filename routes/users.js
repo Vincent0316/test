@@ -152,12 +152,13 @@ router.post('/google', function(req, res) {
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
+    return ticket;
   }
   verify()
-    .then(() => {
-      passport.authenticate("local")(req, res, () => {
-        return res.json({ code: 200, msg: "success" });
-      });
+    .then((data) => {
+      console.log(data);
+      req.session.userName = data
+      res.json({ code: 200, msg: "success" });
     })
     .catch(e => {
       console.log(e)
